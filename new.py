@@ -8,7 +8,7 @@ ingredients = []
 
 
 def ingredient_input():
-    print "what is the first ingredient?  no measurements yet, please"
+    print "what is the ingredient?  no measurements yet, please"
     first_ingredient = raw_input("> ")
     ingredients.append(first_ingredient)
     print ingredients
@@ -19,29 +19,29 @@ def ingredient_input():
         ingredients.append(next_ingredient)
         print "are there more ingredients?  type True or False."
         more_ingredients = raw_input("> ")
+        if more_ingredients == False:
+            directions_input()
     else:
         ingred_check()
 
 
 def ingred_check():
     print ingredients
-    print "is that all the ingredients? y or n?  if not, we're"
-    print "just going to erase it & start over at this point."
-    # will not always be this way - at some point I'll allow editing of ingreds.
+    print "is that all the ingredients? y or n?  if not, you can add to the list."
     total_ingredients = raw_input("> ")
     if total_ingredients == 'y':
         directions_input()
     elif total_ingredients == 'n':
         ingredient_input()
-        # this'll send you back, with current ingredient list deleted.
     else:
         print "y for yes and n for no."
 
 
 
 def directions_input():
-    for i in ingredients_list:
-        print "how much of " + ingredients_list[i] + "?"
+    for i in ingredients:
+        thing = ingredients[i]
+        print "how much of it, it being %s?" % thing
         quantity = raw_input("> ")
 
 def beginning():
