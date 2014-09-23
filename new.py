@@ -8,41 +8,37 @@ ingredients = []
 
 
 def ingredient_input():
-    print "what is the ingredient?  no measurements yet, please"
-    first_ingredient = raw_input("> ")
-    ingredients.append(first_ingredient)
-    print ingredients
-    more_ingredients = True
-    while more_ingredients == True:
-        print "what's the next ingredient?"
-        next_ingredient = raw_input("> ")
-        ingredients.append(next_ingredient)
-        print "are there more ingredients?  type True or False."
-        more_ingredients = raw_input("> ")
-        if more_ingredients == False:
-            directions_input()
-    else:
+    print "what is the ingredient?  no measurements yet, please.  type DONE"
+    print "in all-caps if no more."
+    ingredient = raw_input("> ")
+    if ingredient == 'DONE':
         ingred_check()
-
+    else:
+        ingredients.append(ingredient)
+        
 
 def ingred_check():
     print ingredients
     print "is that all the ingredients? y or n?  if not, you can add to the list."
     total_ingredients = raw_input("> ")
     if total_ingredients == 'y':
-        directions_input()
+        ingredient_quantity()
     elif total_ingredients == 'n':
         ingredient_input()
     else:
         print "y for yes and n for no."
 
+copy_ingredients = ingredients
 
-
-def directions_input():
-    for i in ingredients:
-        thing = ingredients[i]
-        print "how much of it, it being %s?" % thing
+def ingredient_quantity():
+    while copy_ingredients != []:
+        print "ok, for the ingredient " + copy_ingredients[-1] + ".  How much?"
+        print "tsp = teaspoon.  tbsp = tablespoon.  c = cup.  fractions ok."
         quantity = raw_input("> ")
+        print "ok, so " + quantity + " of " + copy_ingredients[-1] + ".  Right?"
+        print "if not," # then we'll have some conditional repeat thingie later.
+        copy_ingredients.pop
+        print "there are " + copy_ingredients.count() + "left" #line not necessary
 
 def beginning():
     print "what is the new recipe you wish to add?  no spaces."
