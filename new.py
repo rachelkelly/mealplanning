@@ -7,14 +7,17 @@ from sys import exit
 ingredients = []
 
 
+
 def ingredient_input():
-    print "what is the ingredient?  no measurements yet, please.  type DONE"
-    print "in all-caps if no more."
-    ingredient = raw_input("> ")
-    if ingredient == 'DONE':
-        ingred_check()
-    else:
-        ingredients.append(ingredient)
+    ingredient = 0
+    while ingredient != 'DONE':
+        print "what is the ingredient?  no measurements yet, please.  type DONE"
+        print "in all-caps if no more."
+        ingredient = raw_input("> ")
+        if ingredient == 'DONE':
+            ingred_check()
+        else:
+            ingredients.append(ingredient)
         
 
 def ingred_check():
@@ -37,8 +40,8 @@ def ingredient_quantity():
         quantity = raw_input("> ")
         print "ok, so " + quantity + " of " + copy_ingredients[-1] + ".  Right?"
         print "if not," # then we'll have some conditional repeat thingie later.
-        copy_ingredients.pop
-        print "there are " + copy_ingredients.count() + "left" #line not necessary
+        list.pop(copy_ingredients)
+        print "there are " + copy_ingredients.count() + " left." #line not necessary
 
 def beginning():
     print "what is the new recipe you wish to add?  no spaces."
