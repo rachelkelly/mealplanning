@@ -1,11 +1,11 @@
 # A program to take in new recipes.
 # Copyright Rachel Kelly 2014
 
-import os
+import os # for pathy stuff?  not sure if necessary
 from sys import exit
-    
-ingredients = []
 
+
+ingredients = []
 
 def ingredient_input():
     ingredient = 0
@@ -17,7 +17,7 @@ def ingredient_input():
             ingred_check()
         else:
             ingredients.append(ingredient)
-        
+
 def ingred_check():
     print ingredients
     print "is that all the ingredients? y or n?  if not, you can add to the list."
@@ -40,6 +40,7 @@ def ingredient_quantity():
         quantity = raw_input("> ")
         print "ok, so " + quantity + " " + copy_ingredients[-1] + ".\n"
         ingreds_with_quantity.append(str(quantity + " " + copy_ingredients[-1]))
+        new_file.write(copy_ingredients[-1])
         del copy_ingredients[-1]
         print "you've enumerated these: "
         print ingreds_with_quantity
@@ -63,7 +64,7 @@ def directions_input():
             exit(0)
         else:
             directions.append(direction)
-            new_filename.write(direction) # this doesn't work, PRIORITY
+            new_file.write(direction) # this doesn't work, PRIORITY
             print "here's what you've got so far:\n"
             print directions
 
@@ -80,7 +81,8 @@ def beginning():
     else:
         global new_filename
         new_filename = "recipes/" + new_recipe + ".txt"
-        open(new_filename, 'a')
+        global new_file
+        new_file = open(new_filename, 'a') #'a' for append rather than write
         # trying to make a new filename inside dir recipes based on given name
         recipe_list.append("\n" + new_recipe)
         ingredient_input()

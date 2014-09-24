@@ -1,1 +1,3 @@
-new.pyc
+*.pyc
+.gitignore
+recipes/
