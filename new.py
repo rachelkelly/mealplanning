@@ -6,6 +6,31 @@ from sys import exit
 
 
 ingredients = []
+copy_ingredients = ingredients # created to iterate over ingreds but not chg list
+ingreds_with_quantity = [] # based on ingreds but w/ quantity
+directions = [] # this might need to be a dict instead?
+
+def beginning():
+    print "what is the new recipe you wish to add?  no spaces."
+    # global new_recipe # this is the only place where this is used, so delete
+    new_recipe = raw_input("> ")
+    list_file = open("recipes/recipe_list.txt", 'r') # chgd to 'r' just to scan it
+    if new_recipe in list_file: # "IOError: File not open for reading" uh oh
+        print "that recipe is already in the file."
+        # if the recipe is already in the file, also check that there's a .txt for it
+        #if "recipes/" + new_recipe + ".txt" in "recipes/"........
+        list_file.close()
+        exit(0)
+    else:
+        global new_filename
+        new_filename = "recipes/" + new_recipe + ".txt"
+        global new_file
+        new_file = open(new_filename, 'w')
+        
+        list_file = open("recipes/recipe_list.txt", 'a')     
+        list_file.write(new_recipe)
+        # trying to make a new filename inside dir recipes based on given name
+        ingredient_input()
 
 def ingredient_input():
     ingredient = 0
@@ -31,8 +56,6 @@ def ingred_check():
         print "y for yes and n for no."
         ingred_check()
 
-copy_ingredients = ingredients
-ingreds_with_quantity = []
 
 def ingredient_quantity():
     while copy_ingredients != []:
@@ -50,7 +73,6 @@ def ingredient_quantity():
             new_file.write(ingreds_with_quantity)
             directions_input()
 
-directions = []
 
 def directions_input():
     print "made it to directions_input!"
@@ -67,25 +89,5 @@ def directions_input():
             print "here's what you've got so far:\n"
             print directions
 
-def beginning():
-    print "what is the new recipe you wish to add?  no spaces."
-    global new_recipe
-    new_recipe = raw_input("> ")
-    list_file = open("recipes/recipe_list.txt", 'a') # don't want to overwrite athg!
-    if new_recipe in list_file: # "IOError: File not open for reading" uh oh
-        print "that recipe is already in the file."
-        list_file.close()
-        exit(0)
-    else:
-        global new_filename
-        new_filename = "recipes/" + new_recipe + ".txt"
-        global new_file
-        new_file = open(new_filename, 'w')
-        
-        list_file.write(new_recipe)
-
-        # trying to make a new filename inside dir recipes based on given name
-        recipe_list.append("\n" + new_recipe)
-        ingredient_input()
 
 beginning()
