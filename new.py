@@ -22,13 +22,18 @@ def beginning():
         list_file.close()
         exit(0)
     else:
+        # adding recipe to recipe_list.txt
+        list_file.close() #gotta close it first tho
+        list_file = open("recipes/recipe_list.txt", 'a')     
+        list_file.write("\n" + new_recipe)
+        list_file.close()
+        
         global new_filename
-        new_filename = "recipes/" + new_recipe + ".txt"
+        new_filename = "recipes/" + new_recipe + ".txt" # think the trouble with
+                                                        # cha buff obj is here
         global new_file
         new_file = open(new_filename, 'w')
         
-        list_file = open("recipes/recipe_list.txt", 'a')     
-        list_file.write(new_recipe)
         # trying to make a new filename inside dir recipes based on given name
         ingredient_input()
 
@@ -70,7 +75,7 @@ def ingredient_quantity():
         print "you have these ingreds left to enumerate:\n"
         print ingredients
         if copy_ingredients == []:
-            new_file.write(ingreds_with_quantity)
+            new_file.write(ingreds_with_quantity) # how to add newline???
             directions_input()
 
 
