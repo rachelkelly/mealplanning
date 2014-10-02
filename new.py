@@ -1,7 +1,6 @@
 # A program to take in new recipes.
 # Copyright Rachel Kelly 2014
 
-import os # for pathy stuff?  not sure if necessary
 from sys import exit
 
 
