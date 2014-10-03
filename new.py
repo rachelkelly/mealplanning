@@ -3,6 +3,7 @@
 
 from sys import exit
 
+global new_recipe, new_file, new_filename
 
 ingredients = []
 copy_ingredients = ingredients # created to iterate over ingreds but not chg list
@@ -11,24 +12,25 @@ directions = [] # this might need to be a dict instead?
 
 def beginning():
     print "what is the new recipe you wish to add?  no spaces."
-    # global new_recipe # this is the only place where this is used, so delete
+    global new_recipe
     new_recipe = raw_input("> ")
-    list_file = open("recipes/recipe_list.txt", 'r') # chgd to 'r' just to scan it
+    list_file = open("recipes/recipe_list.txt", 'r')
     if new_recipe in list_file: # "IOError: File not open for reading" uh oh
         print "that recipe is already in the file."
         # if the recipe is already in the file, also check that there's a .txt for it
-        #if "recipes/" + new_recipe + ".txt" in "recipes/"........
+            #if "recipes/" + new_recipe + ".txt" in "/recipes/" # want to put 'new_filename' in here instead
         list_file.close()
         exit(0)
+
     else:
         # adding recipe to recipe_list.txt
         list_file.close() #gotta close it first tho
-        list_file = open("recipes/recipe_list.txt", 'a')     
-        list_file.write("\n" + new_recipe)
+        list_file = open("recipes/recipe_list.txt", 'a') # 'a' for append rather than
+        list_file.write("\n" + new_recipe)               # write
         list_file.close()
         
         global new_filename
-        new_filename = "recipes/" + new_recipe + ".txt" # think the trouble with
+        new_filename = "/recipes/" + new_recipe + ".txt" # think the trouble with
                                                         # cha buff obj is here
         global new_file
         new_file = open(new_filename, 'w')
