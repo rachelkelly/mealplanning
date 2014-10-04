@@ -2,7 +2,7 @@
 # Copyright Rachel Kelly 2014
 
 from sys import exit
-import os.path       #os.path test
+import os.path       # yeap!  need os.path.  COOL.
 
 global new_recipe, new_file, new_filename
 
@@ -32,7 +32,7 @@ def beginning():
         list_file.close()
         
         global new_filename
-        new_filename = os.path.join('recipes/' + new_recipe + '.txt') # os.path test
+        new_filename = os.path.join('recipes/' + new_recipe + '.txt')
                                                         
         global new_file
         new_file = open(new_filename, 'w')
