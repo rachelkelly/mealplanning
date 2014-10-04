@@ -2,11 +2,11 @@
 # Copyright Rachel Kelly 2014
 
 from sys import exit
+import os.path       #os.path test
 
 global new_recipe, new_file, new_filename
 
 ingredients = []
-copy_ingredients = ingredients # created to iterate over ingreds but not chg list
 ingreds_with_quantity = [] # based on ingreds but w/ quantity
 directions = [] # this might need to be a dict instead?
 
@@ -14,9 +14,11 @@ def beginning():
     print "what is the new recipe you wish to add?  no spaces."
     global new_recipe
     new_recipe = raw_input("> ")
-    list_file = open("recipes/recipe_list.txt", 'r')
-    if new_recipe in list_file: # "IOError: File not open for reading" uh oh
+    list_file = open('recipes/recipe_list.txt', 'r') # lol single quotes
+    if new_recipe in list_file:
         print "that recipe is already in the file."
+        if os.path.isfile('recipes/' + new_recipe + '.txt'):
+            print "plus we already got a recipe filename for it so that's gravy"
         # if the recipe is already in the file, also check that there's a .txt for it
             #if "recipes/" + new_recipe + ".txt" in "/recipes/" # want to put 'new_filename' in here instead
         list_file.close()
@@ -30,8 +32,8 @@ def beginning():
         list_file.close()
         
         global new_filename
-        new_filename = "/recipes/" + new_recipe + ".txt" # think the trouble with
-                                                        # cha buff obj is here
+        new_filename = os.path.join('recipes/' + new_recipe + '.txt') # os.path test
+                                                        
         global new_file
         new_file = open(new_filename, 'w')
         
@@ -48,6 +50,8 @@ def ingredient_input():
             ingred_check()
         else:
             ingredients.append(ingredient)
+
+copy_ingredients = ingredients # created to iterate over & not mess with
 
 def ingred_check():
     print ingredients
