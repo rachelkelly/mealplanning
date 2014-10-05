@@ -16,29 +16,34 @@ def beginning():
     new_recipe = raw_input("> ")
     list_file = open('recipes/recipe_list.txt', 'r') # lol single quotes
     if new_recipe in list_file:
+        recipe_adder()
         print "that recipe is already in the file."
         if os.path.isfile('recipes/' + new_recipe + '.txt'):
             print "plus we already got a recipe filename for it so that's gravy"
-        # if the recipe is already in the file, also check that there's a .txt for it
-            #if "recipes/" + new_recipe + ".txt" in "/recipes/" # want to put 'new_filename' in here instead
-        list_file.close()
-        exit(0)
-
+            list_file.close()
+            exit(0)
+        else:
+            print "ok so it's not rly there.  let's just go thru the steps then?"
+            list_file.close()
+            recipe_adder()
     else:
-        # adding recipe to recipe_list.txt
-        list_file.close() #gotta close it first tho
-        list_file = open("recipes/recipe_list.txt", 'a') # 'a' for append rather than
-        list_file.write("\n" + new_recipe)               # write
+        print "ok then let's add it!"
         list_file.close()
-        
-        global new_filename
-        new_filename = os.path.join('recipes/' + new_recipe + '.txt')
-                                                        
-        global new_file
-        new_file = open(new_filename, 'w')
-        
-        # trying to make a new filename inside dir recipes based on given name
-        ingredient_input()
+        recipe_adder()
+
+def recipe_adder():
+    # adding recipe to recipe_list.txt
+    list_file = open("recipes/recipe_list.txt", 'a') # 'a' for append rather than
+    list_file.write("\n" + new_recipe)               # write
+    list_file.close()
+    
+    global new_filename
+    new_filename = os.path.join('recipes/' + new_recipe + '.txt')                                                        
+    global new_file
+    new_file = open(new_filename, 'w')
+    
+    ingredient_input()
+
 
 def ingredient_input():
     ingredient = 0
