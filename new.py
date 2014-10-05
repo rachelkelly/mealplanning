@@ -2,7 +2,7 @@
 # Copyright Rachel Kelly 2014
 
 from sys import exit
-import os.path       # yeap!  need os.path.  COOL.
+import os.path
 
 global new_recipe, new_file, new_filename
 
@@ -14,27 +14,25 @@ def beginning():
     print "what is the new recipe you wish to add?  no spaces."
     global new_recipe
     new_recipe = raw_input("> ")
-    list_file = open('recipes/recipe_list.txt', 'r') # lol single quotes
-    if new_recipe in list_file:
-        recipe_adder()
-        print "that recipe is already in the file."
-        if os.path.isfile('recipes/' + new_recipe + '.txt'):
-            print "plus we already got a recipe filename for it so that's gravy"
-            list_file.close()
-            exit(0)
-        else:
-            print "ok so it's not rly there.  let's just go thru the steps then?"
-            list_file.close()
-            recipe_adder()
-    else:
-        print "ok then let's add it!"
-        list_file.close()
-        recipe_adder()
+
+    with open('recipes/recipe_list.txt', 'r') as f:
+        for line in f.readlines():
+            if new_recipe == line: # this is still not happening
+                print "that recipe is already in the file."
+                if os.path.isfile('recipes/' + new_recipe + '.txt'):
+                    print "plus we already got a recipe filename for it so that's gravy"
+                    f.close()
+                    exit(0)
+            else:
+                print "ok so it's not there.  let's do this."
+                f.close()
+                recipe_adder()
 
 def recipe_adder():
     # adding recipe to recipe_list.txt
-    list_file = open("recipes/recipe_list.txt", 'a') # 'a' for append rather than
-    list_file.write("\n" + new_recipe)               # write
+    list_file = open("recipes/recipe_list.txt", 'a')
+    new_rec_with_newline = '\n' + new_recipe
+    list_file.write(new_rec_with_newline) # think it's working!
     list_file.close()
     
     global new_filename
@@ -52,6 +50,9 @@ def ingredient_input():
         print "in all-caps if no more."
         ingredient = raw_input("> ")
         if ingredient == 'DONE':
+            global new_file
+            new_file = open(new_filename, 'w')
+            new_file.write(ingredients)
             ingred_check()
         else:
             ingredients.append(ingredient)
