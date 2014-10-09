@@ -7,7 +7,7 @@ import os.path
 global new_recipe, new_file, new_filename
 
 ingredients = []
-ingreds_with_quantity = [] # based on ingreds but w/ quantity
+ingreds_with_quantity = [] # based on ingreds but w/ quantity, not sure if necessary
 directions = [] # this might need to be a dict instead?
 
 def beginning():
@@ -17,16 +17,20 @@ def beginning():
 
     with open('recipes/recipe_list.txt', 'r') as f:
         for line in f.readlines():
-            if new_recipe == line: # this is still not happening
+            if new_recipe in line: # this is still not happening
                 print "that recipe is already in the file."
                 if os.path.isfile('recipes/' + new_recipe + '.txt'):
                     print "plus we already got a recipe filename for it so that's gravy"
                     f.close()
                     exit(0)
+            elif new_recipe not in line:
+                print "checking .."
             else:
-                print "ok so it's not there.  let's do this."
-                f.close()
-                recipe_adder()
+                print "debug line"
+            print "\n"
+            f.close()
+            recipe_adder()
+        
 
 def recipe_adder():
     # adding recipe to recipe_list.txt
