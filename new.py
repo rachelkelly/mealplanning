@@ -45,18 +45,21 @@ def recipe_adder():
 
 def ingredient_input():
     ingredient = 0
+    global new_file
+    new_file = open(new_filename, 'w')
     while ingredient != 'DONE':
         print "what is the ingredient?  no measurements yet, please.  type DONE"
         print "in all-caps if no more."
         ingredient = raw_input("> ")
         if ingredient == 'DONE':
-            global new_file
-            new_file = open(new_filename, 'w')
-            new_file.write(ingredients)
+            new_file.close()
             ingred_check()
         else:
-            ingredients.append(ingredient)
-
+            ingredients.append(ingredient)            
+            new_file.write(ingredient)
+            
+            
+  
 copy_ingredients = ingredients # created to iterate over & not mess with
 
 def ingred_check():
@@ -86,6 +89,7 @@ def ingredient_quantity():
         print "you have these ingreds left to enumerate:\n"
         print ingredients
         if copy_ingredients == []:
+            new_file.open(new_filename, 'w')
             new_file.write(ingreds_with_quantity) # how to add newline???
             directions_input()
 
