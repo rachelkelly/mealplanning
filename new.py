@@ -3,6 +3,7 @@
 
 from sys import exit
 import os.path
+from AppKit import NSBeep
 
 global new_recipe, new_file, new_filename
 
@@ -10,6 +11,8 @@ ingredients = []
 ingreds_with_quantity = [] # based on ingreds but w/ quantity, not sure if necessary
 directions = [] # this might need to be a dict instead?
 
+'''
+# suggest deletion
 def beginning():
     print "what is the new recipe you wish to add?  no spaces."
     global new_recipe
@@ -30,6 +33,28 @@ def beginning():
             print "\n"
             f.close()
             recipe_adder()
+'''
+
+def beginning():
+    print "what is the new recipe?  if the recipe is already in recipe_list/, then"
+    print "we won't write over it."
+    global new_recipe
+    new_recipe = raw_input("> ")
+    
+    f = open('recipes/recipe_list.txt', 'r')
+    for line in f.readlines():
+        if new_recipe in line:
+            NSBeep() # this might not stay in the same function
+            print "BZZZZT.  You already put that recipe in recipe_list/."
+        	if os.path.isfile*('recipes/ + new_recipe + '.txt'):
+        	    print "plus we already got a recipe filename for it so that's gravy."
+        	    f.close()
+        	    exit(0)
+        else:
+            print "checking line .."
+        print "ok.  looks like we've got a new recipe after all!"
+        f.close()
+        recipe_adder()
         
 
 def recipe_adder():
