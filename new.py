@@ -1,7 +1,7 @@
 # A program to take in new recipes.
 # Copyright Rachel Kelly 2014
 
-from sys import exit
+import sys
 import os.path
 from AppKit import NSBeep
 
@@ -45,16 +45,17 @@ def beginning():
     for line in f.readlines():
         if new_recipe in line:
             NSBeep() # this might not stay in the same function
-            print "BZZZZT.  You already put that recipe in recipe_list/."
-        	if os.path.isfile*('recipes/ + new_recipe + '.txt'):
+            print "BZZZZT.  You already put that recipe in the recipe_list dir."
+            if os.path.isfile('recipes/' + new_recipe + '.txt'):
         	    print "plus we already got a recipe filename for it so that's gravy."
         	    f.close()
-        	    exit(0)
+        	    sys.exit()
         else:
+            print line
             print "checking line .."
-        print "ok.  looks like we've got a new recipe after all!"
-        f.close()
-        recipe_adder()
+    print "ok.  looks like we've got a new recipe after all!"
+    f.close()
+    recipe_adder()
         
 
 def recipe_adder():
@@ -86,6 +87,7 @@ def ingredient_input():
         else:
             ingredients.append(ingredient)            
             new_file.write(ingredient)
+            new_file.write('\n')
             
             
   
