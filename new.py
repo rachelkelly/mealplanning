@@ -11,30 +11,6 @@ ingredients = []
 ingreds_with_quantity = [] # based on ingreds but w/ quantity, not sure if necessary
 directions = [] # this might need to be a dict instead?
 
-'''
-# suggest deletion
-def beginning():
-    print "what is the new recipe you wish to add?  no spaces."
-    global new_recipe
-    new_recipe = raw_input("> ")
-
-    with open('recipes/recipe_list.txt', 'r') as f:
-        for line in f.readlines():
-            if new_recipe in line: # this is still not happening
-                print "that recipe is already in the file."
-                if os.path.isfile('recipes/' + new_recipe + '.txt'):
-                    print "plus we already got a recipe filename for it so that's gravy"
-                    f.close()
-                    exit(0)
-            elif new_recipe not in line:
-                print "checking .."
-            else:
-                print "debug line"
-            print "\n"
-            f.close()
-            recipe_adder()
-'''
-
 def beginning():
     print "what is the new recipe?  if the recipe is already in recipe_list/, then"
     print "we won't write over it."
@@ -64,7 +40,7 @@ def recipe_adder():
     new_rec_with_newline = '\n' + new_recipe
     list_file.write(new_rec_with_newline) # think it's working!
     list_file.close()
-    
+
     global new_filename
     new_filename = os.path.join('recipes/' + new_recipe + '.txt')                                                        
     global new_file
@@ -89,8 +65,7 @@ def ingredient_input():
             new_file.write(ingredient)
             new_file.write('\n')
             
-            
-  
+              
 copy_ingredients = ingredients # created to iterate over & not mess with
 
 def ingred_check():
@@ -98,7 +73,6 @@ def ingred_check():
     print "is that all the ingredients? y or n?  if not, you can add to the list."
     total_ingredients = raw_input("> ")
     if total_ingredients == 'y':
-        # new_file.write(ingredients)
         ingredient_quantity()
     elif total_ingredients == 'n':
         ingredient_input()
@@ -119,9 +93,12 @@ def ingredient_quantity():
         print ingreds_with_quantity
         print "you have these ingreds left to enumerate:\n"
         print ingredients
+        
         if copy_ingredients == []:
-            new_file.open(new_filename, 'w')
-            new_file.write(ingreds_with_quantity) # how to add newline???
+            global new_file
+            new_file = open(new_filename, 'w')
+            new_file.write(ingreds_with_quantity)
+            new_file.close()
             directions_input()
 
 
