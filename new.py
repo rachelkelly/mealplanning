@@ -67,6 +67,7 @@ def ingredient_input():
             
               
 copy_ingredients = ingredients # created to iterate over & not mess with
+                               # they call me the DRY violator, the DRYolator
 
 def ingred_check():
     print ingredients
@@ -117,12 +118,15 @@ def directions_input():
             print "here's what you've got so far:\n"
             print directions
         print "ok now we'll write this to file."
+        directions = '\n' + directions + '\n'
         global new_file
         new_file = open(new_filename, 'a+')
         new_file.write(directions)
-        finish_it_up()
+        finish_it_up(directions)
         
 def finish_it_up():
-    pass
+    # print file name (desluggified filename?) and print out complete recipe
+    print str(new_filename)
+    print directions
 
 beginning()
