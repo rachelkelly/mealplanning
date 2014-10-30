@@ -97,7 +97,7 @@ def ingredient_quantity():
         if copy_ingredients == []:
             global new_file
             new_file = open(new_filename, 'w')
-            new_file.write(ingreds_with_quantity)
+            new_file.write(ingreds_with_quantity) #expected a character buffer obj
             new_file.close()
             directions_input()
 
@@ -110,12 +110,19 @@ def directions_input():
         direction = raw_input("> \n")
         if direction == 'DONE':
             print directions
-            exit(0)
+            sys.exit()
         else:
             directions.append(direction)
-            new_file.write(direction)
+            #new_file.write(direction)
             print "here's what you've got so far:\n"
             print directions
-
+        print "ok now we'll write this to file."
+        global new_file
+        new_file = open(new_filename, 'a+')
+        new_file.write(directions)
+        finish_it_up()
+        
+def finish_it_up():
+    pass
 
 beginning()
