@@ -65,7 +65,7 @@ def ingredient_input():
             new_file.write(ingredient)
             new_file.write('\n')
             
-              
+            
 copy_ingredients = ingredients # created to iterate over & not mess with
                                # they call me the DRY violator, the DRYolator
 
@@ -130,3 +130,5 @@ def finish_it_up():
     print directions
 
 beginning()
+
+
