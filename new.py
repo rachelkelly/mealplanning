@@ -51,7 +51,6 @@ def recipe_adder():
 
 def ingredient_input():
     ingredient = 0
-    global new_file
     new_file = open(new_filename, 'w')
     while ingredient != 'DONE':
         print "what is the ingredient?  no measurements yet, please.  type DONE"
@@ -65,9 +64,6 @@ def ingredient_input():
             new_file.write(ingredient)
             new_file.write('\n')
             
-            
-copy_ingredients = ingredients # created to iterate over & not mess with
-                               # they call me the DRY violator, the DRYolator
 
 def ingred_check():
     print ingredients
@@ -82,7 +78,12 @@ def ingred_check():
         ingred_check()
 
 
+
 def ingredient_quantity():
+    copy_ingredients = ingredients # created to iterate over & not mess with
+                               # they call me the DRY violator, the DRYolator
+                               # the WETsmith
+                               # write everything thrice
     while copy_ingredients != []:
         print "ok, for the ingredient " + copy_ingredients[-1] + ".  How much?"
         print "tsp = teaspoon.  tbsp = tablespoon.  c = cup.  fractions ok."
@@ -95,40 +96,43 @@ def ingredient_quantity():
         print "you have these ingreds left to enumerate:\n"
         print ingredients
         
-        if copy_ingredients == []:
-            global new_file
-            new_file = open(new_filename, 'w')
-            new_file.write(ingreds_with_quantity) #expected a character buffer obj
-            new_file.close()
-            directions_input()
+    if copy_ingredients == []:
+        global new_file
+        new_file = open(new_filename, 'w')
+        new_file.write(str(ingreds_with_quantity)) #expected a character buffer obj
+        new_file.close()                           #put str() around it fixed it...
+    	directions_input()                         #that seems really dumb
 
 
 def directions_input():
+    directions = []
     print "made it to directions_input!"
     direction = 0
     while direction != 'DONE':
         print "what's the first/next instruction?  type DONE if, um, yknow."
-        direction = raw_input("> \n")
+        direction = raw_input("> ")
         if direction == 'DONE':
-            print directions
-            sys.exit()
+			print directions
+			print "ok now we'll write this to file."
+			new_file = open(new_filename, 'a+')
+			new_file.write(str(directions))
+			finish_it_up()
         else:
+            print direction
+            direction += '\n'
+            print direction
             directions.append(direction)
             #new_file.write(direction)
             print "here's what you've got so far:\n"
             print directions
-        print "ok now we'll write this to file."
-        directions = '\n' + directions + '\n'
-        global new_file
-        new_file = open(new_filename, 'a+')
-        new_file.write(directions)
-        finish_it_up(directions)
-        
+    print "ok now we'll write this to file."
+    new_file = open(new_filename, 'a+')
+    new_file.write(str(directions))
+    finish_it_up()
+
 def finish_it_up():
     # print file name (desluggified filename?) and print out complete recipe
     print str(new_filename)
     print directions
 
 beginning()
-
-
