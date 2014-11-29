@@ -138,11 +138,6 @@ def ingredient_quantity():
 
 def directions_input():
     '''
-<<<<<<< HEAD
-    directions_input: takes one step of instruction at a time, then prints it out
-    which is debugging behavior.  I want to add a \n at the end of each one so it prints
-    out recipe-style.  
-=======
     directions_input: takes one step of instruction at a time, then takes the indexing
     integer, stringifies it, and tacks it onto the front via the redefinition of the 
     `direction` variable.  then, it prints it out which is debugging behavior.  then 
@@ -151,8 +146,6 @@ def directions_input():
     I want to add a \n at the end of each one so it prints out recipe-style.
     
     I think I want to simplify this whole fn.
-    
->>>>>>> bat_country
     '''
     #directions = []
     print "made it to directions_input!"
@@ -177,11 +170,8 @@ def directions_input():
             #directions.append(direction) # maybe I DON'T want this in a list.
             new_file = open(new_filename, 'a+')
             new_file.write(direction)
-<<<<<<< HEAD
             print "here's what you've got so far:\n"
             print directions
-=======
->>>>>>> bat_country
             i += 1
             
     print "ok now we'll write this to file."
