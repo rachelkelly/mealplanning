@@ -24,10 +24,10 @@ def beginning():
             print "BZZZZT.  You already put that recipe in the recipe_list dir."
             if os.path.isfile('recipes/' + new_recipe + '.txt'):
         	    print "plus we already got a recipe filename for it so that's gravy."
+        	    # give opportunity to edit?  shouldn't be too hard... hmmmmmm
         	    f.close()
         	    sys.exit()
         else:
-            print line
             print "checking line .."
     print "ok.  looks like we've got a new recipe after all!"
     f.close()
@@ -106,18 +106,24 @@ def ingredient_quantity():
 
 def directions_input():
     '''
-    directions_input: takes one step of instruction at a time, then prints it out
-    which is debugging behavior.  I want to add a \n at the end of each one so it prints
-    out recipe-style.  also future (but for different
-    fn) make sdesc of each recipe.
+    directions_input: takes one step of instruction at a time, then takes the indexing
+    integer, stringifies it, and tacks it onto the front via the redefinition of the 
+    `direction` variable.  then, it prints it out which is debugging behavior.  then 
+    index += 1 & starts over back again as direction still does not equal 'DONE'.  
+    
+    I want to add a \n at the end of each one so it prints out recipe-style.
+    
+    I think I want to simplify this whole fn.
+    
     '''
     directions = []
     print "made it to directions_input!"
-    direction = 0
+    direction = 0 # wait why is this here
     i = 1 # indexing & numeration
     while direction != 'DONE':
         print "what's the first/next instruction?  type DONE if, um, yknow."
         direction = raw_input("> ")
+        
         if direction == 'DONE':
 			print directions
 			print "ok now we'll write this to file."
@@ -125,18 +131,17 @@ def directions_input():
 			new_file.write(str(directions))
 			new_file.write('\n')
 			finish_it_up()
+        
         else:
-            print direction # for debug
+            print "ok, the latest direction is ", direction # for debug
             j = str(i) # why can't I just have below line be 'dir = str(i + ". " + dir)'?
-            direction = j + ". " + direction
-            directions.append(direction) # maybe I DON'T want this in a list.
+            direction = j + ". " + direction + "\n"
+            #directions.append(direction) # maybe I DON'T want this in a list.
             new_file = open(new_filename, 'a+')
             new_file.write(direction)
-            #next two lines for debug
-            for line in new_file:
-                print line
-            print "here's what you've got so far:\n"
-            print directions
+            
+            #print "here's what you've got so far:\n" # commenting out bc experimenting w
+            #print directions                         # not having a directions list.
             i += 1
     print "ok now we'll write this to file."
     #new_file = open(new_filename, 'a+')
