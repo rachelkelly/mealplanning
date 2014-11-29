@@ -1,4 +1,4 @@
-# A program to take in new recipes.
+# A program to take in new recipes, check if they exist yet, and 
 # Copyright Rachel Kelly 2014
 
 import sys
@@ -12,9 +12,18 @@ ingreds_with_quantity = [] # based on ingreds but w/ quantity, not sure if neces
 directions = [] # this might need to be a dict instead?
 
 def beginning():
+    '''
+    very first function, the only function called in the program, in fact.  probably
+    a good opportunity to do if __init__ == '__main__' stuff.
+    
+    takes in the recipe name.  if it already exists in recipes/recipe_list.txt, the 
+    program checks to see if there's a file for it.  if there is, it kicks you out.  if 
+    there is no recipe of that name in recipe_list.txt, recipe_list.txt is closed & you're
+    sent on to recipe_adder().
+    '''
     print "what is the new recipe?  if the recipe is already in recipe_list/, then"
     print "we won't write over it."
-    global new_recipe
+    global new_recipe # this global appears to function properly
     new_recipe = raw_input("> ")
     
     f = open('recipes/recipe_list.txt', 'r')
@@ -35,6 +44,9 @@ def beginning():
         
 
 def recipe_adder():
+    '''
+    a silent function which re-opens recipe_list.txt, assigns a new variable 
+    '''
     # adding recipe to recipe_list.txt
     list_file = open("recipes/recipe_list.txt", 'a')
     new_rec_with_newline = '\n' + new_recipe
@@ -99,9 +111,10 @@ def ingredient_quantity():
     if copy_ingredients == []:
         global new_file
         new_file = open(new_filename, 'w')
-        new_file.write(str(ingreds_with_quantity)) #expected a character buffer obj
-        new_file.close()                           #put str() around it fixed it...
-    	directions_input()                         #that seems really dumb
+        new_file.write(str(ingreds_with_quantity))
+        new_file.write('\n') # new guy
+        new_file.close()
+    	directions_input()
 
 
 def directions_input():
@@ -116,16 +129,16 @@ def directions_input():
     I think I want to simplify this whole fn.
     
     '''
-    directions = []
+    #directions = []
     print "made it to directions_input!"
-    direction = 0 # wait why is this here
+    direction = 0 # wait why is this here, does this really need to be defined outside iteration
     i = 1 # indexing & numeration
     while direction != 'DONE':
         print "what's the first/next instruction?  type DONE if, um, yknow."
         direction = raw_input("> ")
         
         if direction == 'DONE':
-			print directions
+			#print directions
 			print "ok now we'll write this to file."
 			new_file = open(new_filename, 'a+')
 			new_file.write(str(directions))
@@ -133,16 +146,14 @@ def directions_input():
 			finish_it_up()
         
         else:
-            print "ok, the latest direction is ", direction # for debug
+            print "ok, the latest direction is:", direction # for debug
             j = str(i) # why can't I just have below line be 'dir = str(i + ". " + dir)'?
             direction = j + ". " + direction + "\n"
             #directions.append(direction) # maybe I DON'T want this in a list.
             new_file = open(new_filename, 'a+')
             new_file.write(direction)
-            
-            #print "here's what you've got so far:\n" # commenting out bc experimenting w
-            #print directions                         # not having a directions list.
             i += 1
+            
     print "ok now we'll write this to file."
     #new_file = open(new_filename, 'a+')
     #new_file.write(str(directions))
@@ -153,6 +164,6 @@ def directions_input():
 def finish_it_up():
     # print file name (desluggified filename?) and print out complete recipe
     print str(new_filename)
-    print directions
+    #print directions
 
 beginning()
