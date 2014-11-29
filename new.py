@@ -45,7 +45,9 @@ def beginning():
 
 def recipe_adder():
     '''
-    a silent function which re-opens recipe_list.txt, assigns a new variable 
+    a silent function which re-opens recipe_list.txt, assigns a new variable which adds
+    a newline so it writes nicely.  then with the global new_filename, it's written to
+    recipe_list.txt and a new file is created via var new_filename.  then to ingred_input(
     '''
     # adding recipe to recipe_list.txt
     list_file = open("recipes/recipe_list.txt", 'a')
@@ -62,6 +64,17 @@ def recipe_adder():
 
 
 def ingredient_input():
+    '''
+    first I define ingredient = 0 so I can manipulate it in the conditional.  then the
+    global new_filename is used again to open the recipe itself.  until the user types
+    DONE in all-capitals, it will continue to ask for ingredients.
+    
+    note: I probably ought to get rid of the ingreds_with_quantity & just wrap it up
+    in here.  blug
+    
+    amy sez: "no separate fns: an extra field asking for quantity, but not another fn."
+    good idea amy!
+    '''
     ingredient = 0
     new_file = open(new_filename, 'w')
     while ingredient != 'DONE':
@@ -78,6 +91,10 @@ def ingredient_input():
             
 
 def ingred_check():
+    '''
+    a nice lil guy which asks if you want to add more ingreds or no.  binary - no editing
+    of ingreds is yet possible.  prrrrobably a good stretch goal here.
+    '''
     print ingredients
     print "is that all the ingredients? y or n?  if not, you can add to the list."
     total_ingredients = raw_input("> ")
@@ -90,8 +107,10 @@ def ingred_check():
         ingred_check()
 
 
-
 def ingredient_quantity():
+    '''
+    this puppy is about to get refactored into ingredient_input().
+    '''
     copy_ingredients = ingredients # created to iterate over & not mess with
                                # they call me the DRY violator, the DRYolator
                                # the WETsmith
@@ -160,8 +179,13 @@ def directions_input():
     finish_it_up()
 
 # def feeds_how_many():
+    #lol so not convinced this is necessary at this point
 
 def finish_it_up():
+    '''
+    prints out new recipe name.  should probably also print out complete recipe & ask if
+    it's ok or not.
+    '''
     # print file name (desluggified filename?) and print out complete recipe
     print str(new_filename)
     #print directions
