@@ -108,8 +108,7 @@ def directions_input():
     '''
     directions_input: takes one step of instruction at a time, then prints it out
     which is debugging behavior.  I want to add a \n at the end of each one so it prints
-    out recipe-style.  also future (but for different
-    fn) make sdesc of each recipe.
+    out recipe-style.  
     '''
     directions = []
     print "made it to directions_input!"
@@ -128,13 +127,10 @@ def directions_input():
         else:
             print direction # for debug
             j = str(i) # why can't I just have below line be 'dir = str(i + ". " + dir)'?
-            direction = j + ". " + direction
-            directions.append(direction) # maybe I DON'T want this in a list.
+            direction = j + ". " + direction + "\n"
+            #directions.append(direction) # maybe I DON'T want this in a list.
             new_file = open(new_filename, 'a+')
             new_file.write(direction)
-            #next two lines for debug
-            for line in new_file:
-                print line
             print "here's what you've got so far:\n"
             print directions
             i += 1
