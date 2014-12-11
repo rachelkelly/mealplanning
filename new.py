@@ -131,7 +131,9 @@ def ingredient_quantity():
         global new_file
         new_file = open(new_filename, 'w')
         new_file.write(str(ingreds_with_quantity))
-        new_file.write('\n') # new guy
+        # what about: for j in ingreds_with_quantity:
+            #new_file.write(j)
+        new_file.write('\n') # leave this w/ latest for loop
         new_file.close()
     	directions_input()
 
@@ -170,8 +172,6 @@ def directions_input():
             #directions.append(direction) # maybe I DON'T want this in a list.
             new_file = open(new_filename, 'a+')
             new_file.write(direction)
-            print "here's what you've got so far:\n"
-            print directions
             i += 1
             
     print "ok now we'll write this to file."
